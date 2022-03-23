@@ -12,17 +12,17 @@ pynwb
 
 To recreate the experiments run
 
-##extract_features.py
+## extract_features.py
 This script reads in the iBIDS dataset and extracts features which are then saved to './features'
 
-##reconstruction_minimal.py
+## reconstruction_minimal.py
 Reconstructs the spectrogram from the neural features in a 10-fold cross-validation and synthesizes the audio using the Method described by Griffin and Lim.
 
-##viz-results.py
+## viz-results.py
 Can then be used to plot the results figure from the paper.
 
-##reconstuctWave.py
+## reconstuctWave.py
 Synthesizes an audio waveform using the method described by Griffin-Lim
 
-##MelFilterBank.py
+## MelFilterBank.py
 Applies mel filter banks to spectrograms.
