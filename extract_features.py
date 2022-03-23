@@ -1,11 +1,8 @@
 import os
 
-
 import pandas as pd
 import numpy as np 
 import numpy.matlib as matlib
-from mne.filter import filter_data
-
 import scipy
 import scipy.signal
 import scipy.stats
@@ -55,15 +52,6 @@ def downsampleLabels(labels, sr, windowLength=0.05, frameshift=0.01):
         stop = int(np.floor(start+windowLength*sr))
         newLabels[w]=scipy.stats.mode(labels[start:stop])[0][0].encode("ascii", errors="ignore").decode()
     return newLabels
-
-def windowAudio(audio, sr, windowLength=0.05, frameshift=0.01):
-    numWindows=int(np.floor((audio.shape[0]-windowLength*sr)/(frameshift*sr)))
-    winAudio = np.zeros((numWindows, int(windowLength*sr )))
-    for w in range(numWindows):
-        start_audio = int(np.floor((w*frameshift)*sr))
-        stop_audio = int(np.floor(start_audio+windowLength*sr))    
-        winAudio[w,:] = audio[start_audio:stop_audio]
-    return winAudio
 
 def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
     numWindows=int(np.floor((audio.shape[0]-windowLength*sr)/(frameshift*sr)))
@@ -130,16 +118,18 @@ if __name__=="__main__":
 
         melSpec = extractMelSpecs(scaled,audio_sampling_rate,windowLength=winL,frameshift=frameshift)
         
-        # Align to ECoG features
+        # Align to EEG features
         melSpec = melSpec[modelOrder*stepSize:melSpec.shape[0]-modelOrder*stepSize,:]
         # Adjusting length (differences might occur due to rounding in the number of windows)
         if melSpec.shape[0]!=feat.shape[0]:
             tLen = np.min([melSpec.shape[0],feat.shape[0]])
             melSpec = melSpec[:tLen,:]
             feat = feat[:tLen,:]
+        
+        #Creating feature names by appending the temporal shift 
+        feature_names = nameVector(channels[:,None], modelOrder=modelOrder)
         # Save everything
         np.save(os.path.join(path_output,f'{participant}_feat.npy'), feat)
         np.save(os.path.join(path_output,f'{participant}_procWords.npy'), words)
         np.save(os.path.join(path_output,f'{participant}_spec.npy'),melSpec)
-        
-        np.save(os.path.join(path_output,f'{participant}_feat_names.npy'), nameVector(channels[:,None], modelOrder=modelOrder))
+        np.save(os.path.join(path_output,f'{participant}_feat_names.npy'), feature_names )
