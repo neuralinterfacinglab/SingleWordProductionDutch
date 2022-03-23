@@ -2,27 +2,22 @@
 
 Scripts to work with the intracranial EEG data from LINK described in LINK
 
-Packages necessary to run are:
-numpy
-scipy
-scikit.learn
-pandas 
-and
-pynwb
+## Requirements
+* Python > 3.6
+* numpy
+* scipy
+* scikit.learn
+* pandas 
+* [pynwb](https://github.com/NeurodataWithoutBorders/pynwb)
 
-To recreate the experiments run
+## Repository content
+To recreate the experiments, run the following scripts.
+* __extract_features.py__: Reads in the iBIDS dataset and extracts features which are then saved to './features'
 
-## extract_features.py
-This script reads in the iBIDS dataset and extracts features which are then saved to './features'
+* __reconstruction_minimal.py__: Reconstructs the spectrogram from the neural features in a 10-fold cross-validation and synthesizes the audio using the Method described by Griffin and Lim.
 
-## reconstruction_minimal.py
-Reconstructs the spectrogram from the neural features in a 10-fold cross-validation and synthesizes the audio using the Method described by Griffin and Lim.
+* __viz-results.py__: Can then be used to plot the results figure from the paper.
 
-## viz-results.py
-Can then be used to plot the results figure from the paper.
+* __reconstuctWave.py__: Synthesizes an audio waveform using the method described by Griffin-Lim
 
-## reconstuctWave.py
-Synthesizes an audio waveform using the method described by Griffin-Lim
-
-## MelFilterBank.py
-Applies mel filter banks to spectrograms.
+* __MelFilterBank.py__: Applies mel filter banks to spectrograms.

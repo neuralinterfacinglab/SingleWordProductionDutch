@@ -1,13 +1,11 @@
 import os
 
 import numpy as np
+import scipy.io.wavfile as wavfile
 from scipy.stats import pearsonr
 from sklearn.model_selection import KFold
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
-
-
-import scipy.io.wavfile as wavfile
 
 import reconstructWave as rW
 import MelFilterBank as mel
