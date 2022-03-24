@@ -16,7 +16,7 @@ To recreate the experiments, run the following scripts.
 
 * __reconstruction_minimal.py__: Reconstructs the spectrogram from the neural features in a 10-fold cross-validation and synthesizes the audio using the Method described by Griffin and Lim.
 
-* __viz-results.py__: Can then be used to plot the results figure from the paper.
+* __viz_results.py__: Can then be used to plot the results figure from the paper.
 
 * __reconstuctWave.py__: Synthesizes an audio waveform using the method described by Griffin-Lim
 
