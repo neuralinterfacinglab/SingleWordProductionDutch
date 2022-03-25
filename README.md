@@ -1,6 +1,6 @@
 # SingleWordProductionDutch
 
-Scripts to work with the intracranial EEG data from LINK described in LINK
+Scripts to work with the intracranial EEG data from [here](https://osf.io/nrgx6/) described in LINK
 
 ## Dependencies
 The scripts require Python >= 3.6 and the following packages
