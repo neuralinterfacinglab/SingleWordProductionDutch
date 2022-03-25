@@ -1,6 +1,7 @@
 import os
 
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 import scipy.io.wavfile as wavfile
 
@@ -52,13 +53,14 @@ if __name__=="__main__":
         #Shaded areas highlight standard error
         ax[1].fill_between(specBins,specMean[p,:]-error,specMean[p,:]+error,alpha=0.5,color=colors[p])
     ax[1].set_ylim(0,1)
+    ax[1].set_xlim(0,len(specBins))
     ax[1].set_xlabel('Spectral Bin')
     ax[1].set_ylabel('Correlation')
     #Title
     ax[1].set_title('(B)',fontsize=20)
 
     # Make pretty
-    plt.setp(ax[0].spines.values(), linewidth=2)
+    plt.setp(ax[1].spines.values(), linewidth=2)
     # The ticks
     ax[1].xaxis.set_tick_params(width=2)
     ax[1].yaxis.set_tick_params(width=2)
@@ -69,7 +71,6 @@ if __name__=="__main__":
     #Despine
     ax[1].spines['right'].set_visible(False)
     ax[1].spines['top'].set_visible(False)
-
     plt.tight_layout()
     plt.savefig(os.path.join(result_path,'results.png'),dpi=600)
     plt.show()
@@ -79,8 +80,8 @@ if __name__=="__main__":
     feat_path = r'./features'
     participant = 'sub-06'
     #Which timeframe to plot
-    start_s = 2.5
-    stop_s=16.5
+    start_s = 5.5
+    stop_s=19.5
 
     frameshift = 0.01
     #Load spectrograms
@@ -103,7 +104,11 @@ if __name__=="__main__":
     ax[1].set_ylabel('Log Mel-Spec Bin')
 
     plt.savefig(os.path.join(result_path,'spec_example.png'),dpi=600)
-    plt.savefig(os.path.join(result_path,'spec_example.svg'))
+
+    # Saving for use in Adobe Illustrator
+    matplotlib.rcParams['pdf.fonttype'] = 42
+    matplotlib.rcParams['ps.fonttype'] = 42
+    plt.savefig(os.path.join(result_path,'spec_example.pdf'),transparent=True)
     plt.show()
 
 
@@ -159,7 +164,10 @@ if __name__=="__main__":
         #axes.spines['top'].set_visible(False)
 
     plt.savefig(os.path.join(result_path,'wav_example.png'),dpi=600)
-    plt.savefig(os.path.join(result_path,'wav_example.svg'))
+    #Saving for usage in Adobe Illustrator
+    matplotlib.rcParams['pdf.fonttype'] = 42
+    matplotlib.rcParams['ps.fonttype'] = 42
+    plt.savefig(os.path.join(result_path,'wav_example.pdf'),transparent = True)
     plt.show()
 
 
