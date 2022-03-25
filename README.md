@@ -2,12 +2,12 @@
 
 Scripts to work with the intracranial EEG data from LINK described in LINK
 
-## Requirements
-* Python > 3.6
-* numpy
-* scipy
-* scikit.learn
-* pandas 
+## Dependencies
+The scripts require Python >= 3.6 and the following packages
+* [numpy](http://www.numpy.org/)
+* [scipy](https://www.scipy.org/scipylib/index.html)
+* [scikit-learn](https://scikit-learn.org/stable/)
+* [pandas](https://pandas.pydata.org/) 
 * [pynwb](https://github.com/NeurodataWithoutBorders/pynwb)
 
 ## Repository content
