@@ -1,5 +1,4 @@
 import os
-
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
@@ -30,9 +29,9 @@ if __name__=="__main__":
     ax[0].set_ylabel('Correlation')
     #Title
     ax[0].set_title('(A)',fontsize=20)
-    # Make pretty
+    #Make pretty
     plt.setp(ax[0].spines.values(), linewidth=2)
-    # The ticks
+    #The ticks
     ax[0].xaxis.set_tick_params(width=2)
     ax[0].yaxis.set_tick_params(width=2)
     ax[0].xaxis.label.set_fontsize(20)
@@ -43,7 +42,7 @@ if __name__=="__main__":
     ax[0].spines['right'].set_visible(False)
     ax[0].spines['top'].set_visible(False)
 
-    # Mean across folds over spectral bins
+    #Mean across folds over spectral bins
     specMean = np.mean(allRes,axis=1)
     specStd = np.std(allRes,axis=1)
     specBins = np.arange(allRes.shape[2])
@@ -59,9 +58,9 @@ if __name__=="__main__":
     #Title
     ax[1].set_title('(B)',fontsize=20)
 
-    # Make pretty
+    #Make pretty
     plt.setp(ax[1].spines.values(), linewidth=2)
-    # The ticks
+    #The ticks
     ax[1].xaxis.set_tick_params(width=2)
     ax[1].yaxis.set_tick_params(width=2)
     ax[1].xaxis.label.set_fontsize(20)
@@ -76,7 +75,7 @@ if __name__=="__main__":
     plt.show()
 
     # Viz example spectrogram
-    # Load words and spectrograms
+    #Load words and spectrograms
     feat_path = r'./features'
     participant = 'sub-06'
     #Which timeframe to plot
@@ -105,7 +104,7 @@ if __name__=="__main__":
 
     plt.savefig(os.path.join(result_path,'spec_example.png'),dpi=600)
 
-    # Saving for use in Adobe Illustrator
+    #Saving for use in Adobe Illustrator
     matplotlib.rcParams['pdf.fonttype'] = 42
     matplotlib.rcParams['ps.fonttype'] = 42
     plt.savefig(os.path.join(result_path,'spec_example.pdf'),transparent=True)
