@@ -29,7 +29,7 @@ if __name__=="__main__":
     ax[0].set_ylim(0,1)
     ax[0].set_ylabel('Correlation')
     #Title
-    ax[0].set_title('(A)',fontsize=20)
+    ax[0].set_title('a',fontsize=20,fontweight="bold")
     # Make pretty
     plt.setp(ax[0].spines.values(), linewidth=2)
     # The ticks
@@ -57,7 +57,7 @@ if __name__=="__main__":
     ax[1].set_xlabel('Spectral Bin')
     ax[1].set_ylabel('Correlation')
     #Title
-    ax[1].set_title('(B)',fontsize=20)
+    ax[1].set_title('b',fontsize=20,fontweight="bold")
 
     # Make pretty
     plt.setp(ax[1].spines.values(), linewidth=2)
