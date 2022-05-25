@@ -113,9 +113,9 @@ if __name__=="__main__":
 
     # Viz waveforms
     #Load waveforms
-    rate, audio = wavfile.read(os.path.join(result_path,f'{participant}_predicted.wav'))
-    rate, recAudio = wavfile.read(os.path.join(result_path,f'{participant}_orig_synthesized.wav'))
-
+    rate, audio = wavfile.read(os.path.join(result_path,f'{participant}_orig_synthesized.wav'))
+    rate, recAudio = wavfile.read(os.path.join(result_path,f'{participant}_predicted.wav'))
+    
     orig = audio[int(start_s*rate):int(stop_s*rate)]
     rec = recAudio[int(start_s*rate):int(stop_s*rate)]
     f, axarr = plt.subplots(2, sharex=True)
