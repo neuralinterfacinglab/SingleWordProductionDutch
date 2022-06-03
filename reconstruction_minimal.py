@@ -59,6 +59,9 @@ if __name__=="__main__":
     numComps = 50
     
     allRes = np.zeros((len(pts),nfolds,23))
+    explainedVariance = np.zeros((len(pts),nfolds))
+    numRands = 1000
+    randomControl = np.zeros((len(pts),numRands, 23))
 
     for pNr, pt in enumerate(pts):
         #Load the data
@@ -80,6 +83,8 @@ if __name__=="__main__":
 
             #Fit PCA to training data
             pca.fit(trainData)
+            #Get percentage of explained variance by selected components
+            explainedVariance[pNr,k] =  np.sum(pca.explained_variance_ratio_[:numComps])
             #Tranform data into component space
             trainData=np.dot(trainData, pca.components_[:numComps,:].T)
             testData = np.dot(testData, pca.components_[:numComps,:].T)
@@ -92,13 +97,27 @@ if __name__=="__main__":
             #Evaluate reconstruction of this fold
             for specBin in range(spectrogram.shape[1]):
                 if np.any(np.isnan(rec_spec)):
-                    print('%s has %d broken samples in recontruction' % (pt, np.sum(np.isnan(rec_spec))))
+                    print('%s has %d broken samples in reconstruction' % (pt, np.sum(np.isnan(rec_spec))))
                 r, p = pearsonr(spectrogram[test, specBin], rec_spec[test, specBin])
                 rs[k,specBin] = r
 
         #Show evaluation result
         print('%s has mean correlation of %f' % (pt, np.mean(rs)))
         allRes[pNr,:,:]=rs
+
+        #Estimate random baseline
+        for randRound in range(numRands):
+            #Choose a random splitting point at least 10% of the dataset size away
+            splitPoint = np.random.choice(np.arange(int(spectrogram.shape[0]*0.1),int(spectrogram.shape[0]*0.9)))
+            #Swap the dataset on the splitting point 
+            shuffled = np.concatenate((spectrogram[splitPoint:,:],spectrogram[:splitPoint,:]))
+            #Calculate the correlations
+            for specBin in range(spectrogram.shape[1]):
+                if np.any(np.isnan(rec_spec)):
+                    print('%s has %d broken samples in reconstruction' % (pt, np.sum(np.isnan(rec_spec))))
+                r, p = pearsonr(spectrogram[:,specBin], shuffled[:,specBin])
+                randomControl[pNr, randRound,specBin]=r
+
 
         #Save reconstructed spectrogram
         os.makedirs(os.path.join(result_path), exist_ok=True)
@@ -112,5 +131,7 @@ if __name__=="__main__":
         origWav = createAudio(spectrogram,audiosr=audiosr,winLength=winLength,frameshift=frameshift)
         wavfile.write(os.path.join(result_path,f'{pt}_orig_synthesized.wav'),int(audiosr),origWav)
 
-    #Save results in numpy array          
+    #Save results in numpy arrays          
     np.save(os.path.join(result_path,'linearResults.npy'),allRes)
+    np.save(os.path.join(result_path,'randomResults.npy'),randomControl)
+    np.save(os.path.join(result_path,'explainedVariance.npy'),explainedVariance)
