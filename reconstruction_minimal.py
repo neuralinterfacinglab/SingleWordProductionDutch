@@ -58,6 +58,7 @@ if __name__=="__main__":
     pca = PCA()
     numComps = 50
     
+    #Initialize empty matrices for correlation results, randomized contols and amount of explained variance
     allRes = np.zeros((len(pts),nfolds,23))
     explainedVariance = np.zeros((len(pts),nfolds))
     numRands = 1000
