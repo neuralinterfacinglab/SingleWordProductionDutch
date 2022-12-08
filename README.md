@@ -21,3 +21,5 @@ To recreate the experiments, run the following scripts.
 * __reconstuctWave.py__: Synthesizes an audio waveform using the method described by Griffin-Lim
 
 * __MelFilterBank.py__: Applies mel filter banks to spectrograms.
+
+* __load_data.mat__: Example of how to load data using Matlab instead of Python
